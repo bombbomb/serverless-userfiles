@@ -1,0 +1,37 @@
+service: userfiles
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+        - "s3:PutObject"
+        - "s3:getSignedUrl"
+      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "UserFileBucket" } ] ]  }
+
+functions:
+  list:
+    handler: handler.list
+    events:
+      - http:
+          path: list
+          method: get
+  sign:
+    handler: handler.sign
+    events:
+      - http:
+          path: sign/{filename}
+          method: get
+
+resources:
+  Resources:
+    UserFileBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: userfiles.bombbomb.com
+  Outputs:
+     NewOutput:
+       Description: "Description for the output"
+       Value: "Some output value"
