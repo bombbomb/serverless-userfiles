@@ -3,6 +3,7 @@ service: userfiles
 provider:
   name: aws
   runtime: nodejs4.3
+  stage: dev
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -18,19 +19,23 @@ functions:
       - http:
           path: list
           method: get
+          authorizer: auth
   sign:
     handler: handler.sign
     events:
       - http:
           path: sign/{filename}
           method: get
+          authorizer: auth
+  auth:
+    handler: handler.auth
 
 resources:
   Resources:
     UserFileBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: userfiles.bombbomb.com
+        BucketName: ${opt:stage,self:provider.stage}.userfiles.bombbomb.com
   Outputs:
      NewOutput:
        Description: "Description for the output"

@@ -1,0 +1,23 @@
+{
+  "name": "serverless-userfiles",
+  "version": "1.0.0",
+  "description": "Let JWT bearers host on s3",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bombbomb/serverless-userfiles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bombbomb/serverless-userfiles/issues"
+  },
+  "homepage": "https://github.com/bombbomb/serverless-userfiles#readme",
+  "dependencies": {
+    "aws-sdk": "^2.6.4",
+    "jsonwebtoken": "^7.1.9"
+  }
+}
